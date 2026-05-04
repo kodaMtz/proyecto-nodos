@@ -1,0 +1,42 @@
+version: "3"
+services:
+  nodo1:
+    build: ./backend
+    ports:
+      - "3001:3001"
+    environment:
+      - NODO_ID=1
+      - MI_NOMBRE=Koda
+      - PORT=3001
+    volumes:
+      - nodo1_data:/app/nodos
+    restart: unless-stopped
+
+  nodo2:
+    build: ./backend
+    ports:
+      - "3002:3002"
+    environment:
+      - NODO_ID=2
+      - MI_NOMBRE=Ivonne
+      - PORT=3002
+    volumes:
+      - nodo2_data:/app/nodos
+    restart: unless-stopped
+
+  nodo3:
+    build: ./backend
+    ports:
+      - "3003:3003"
+    environment:
+      - NODO_ID=3
+      - MI_NOMBRE=Mauricio
+      - PORT=3003
+    volumes:
+      - nodo3_data:/app/nodos
+    restart: unless-stopped
+
+volumes:
+  nodo1_data:
+  nodo2_data:
+  nodo3_data:

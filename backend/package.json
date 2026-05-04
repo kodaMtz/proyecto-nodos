@@ -1,0 +1,14 @@
+{
+  "name": "backend-nodos",
+  "version": "1.0.0",
+  "scripts": {
+    "start:nodo1": "NODO_ID=1 MI_NOMBRE=Koda PORT=3001 node src/index.js",
+    "start:nodo2": "NODO_ID=2 MI_NOMBRE=Ivonne PORT=3002 node src/index.js",
+    "start:nodo3": "NODO_ID=3 MI_NOMBRE=Mauricio PORT=3003 node src/index.js"
+  },
+  "dependencies": {
+    "express": "4.18.2",
+    "cors": "2.8.5",
+    "sqlite3": "5.1.6"
+  }
+}
