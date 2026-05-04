@@ -3,6 +3,7 @@ const cors = require("cors");
 const Database = require("./config/database");
 const UsuarioController = require("./controllers/usuarioController");
 const setupRoutes = require("./routes/usuarioRoutes");
+const SincronizacionService = require("./services/sincronizacionService");
 
 const NODO_ID = process.env.NODO_ID || "1";
 const MI_NOMBRE = process.env.MI_NOMBRE || "Nodo";
@@ -16,6 +17,9 @@ async function main() {
   const controller = new UsuarioController(db, parseInt(NODO_ID), MI_NOMBRE);
   await controller.init();
 
+  const sincronizacion = new SincronizacionService(db, NODO_ID);
+  sincronizacion.iniciar(5000);
+
   const app = express();
   app.use(cors());
   app.use(express.json());
@@ -23,7 +27,8 @@ async function main() {
   app.use("/api", setupRoutes(controller));
 
   app.listen(PORT, () => {
-    console.log(`🚀 Nodo ${NODO_ID} - ${MI_NOMBRE} en puerto ${PORT}`);
+    console.log(`🤖 Nodo ${NODO_ID} - ${MI_NOMBRE} en puerto ${PORT}`);
+    console.log(`🔄 Sincronizando con otros nodos cada 5 segundos`);
   });
 }
 
