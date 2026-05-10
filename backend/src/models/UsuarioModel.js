@@ -46,6 +46,17 @@ class UsuarioModel {
     }
     return null;
   }
+
+  async actualizar(id, nombre) {
+    return this.db.run(`UPDATE usuarios SET nombre = ? WHERE id = ?`, [
+      nombre,
+      id,
+    ]);
+  }
+
+  async eliminar(id) {
+    return this.db.run(`DELETE FROM usuarios WHERE id = ?`, [id]);
+  }
 }
 
 module.exports = UsuarioModel;

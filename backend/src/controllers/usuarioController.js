@@ -77,6 +77,39 @@ class UsuarioController {
   async healthCheck(req, res) {
     res.json({ nodo: this.nodoId, nombre: this.miNombre, status: "online" });
   }
+
+  async actualizarUsuario(req, res) {
+    const { id } = req.params;
+    const { nombre } = req.body;
+
+    if (!nombre || nombre.trim() === "") {
+      return res.status(400).json({ error: "Nombre requerido" });
+    }
+
+    try {
+      const result = await this.model.actualizar(parseInt(id), nombre.trim());
+      if (result.changes === 0) {
+        return res.status(404).json({ error: "Usuario no encontrado" });
+      }
+      res.json({ id: parseInt(id), nombre: nombre.trim(), actualizado: true });
+    } catch (error) {
+      res.status(500).json({ error: "Error al actualizar" });
+    }
+  }
+
+  async eliminarUsuario(req, res) {
+    const { id } = req.params;
+
+    try {
+      const result = await this.model.eliminar(parseInt(id));
+      if (result.changes === 0) {
+        return res.status(404).json({ error: "Usuario no encontrado" });
+      }
+      res.json({ id: parseInt(id), eliminado: true });
+    } catch (error) {
+      res.status(500).json({ error: "Error al eliminar" });
+    }
+  }
 }
 
 module.exports = UsuarioController;
