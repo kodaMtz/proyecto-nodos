@@ -12,6 +12,9 @@ function setupRoutes(controller) {
     controller.eliminarUsuario(req, res),
   );
   router.get("/exportar", (req, res) => controller.exportarUsuarios(req, res));
+  router.get("/exportar-eliminados", (req, res) =>
+    controller.exportarEliminados(req, res),
+  );
   router.post("/importar", (req, res) => controller.importarUsuarios(req, res));
   router.get("/health", (req, res) => controller.healthCheck(req, res));
 

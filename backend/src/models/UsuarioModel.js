@@ -4,15 +4,20 @@ class UsuarioModel {
   }
 
   async crearTabla() {
-    const sql = `
+    await this.db.run(`
             CREATE TABLE IF NOT EXISTS usuarios (
                 id INTEGER PRIMARY KEY,
                 nombre TEXT NOT NULL,
                 nodo_origen TEXT NOT NULL,
                 timestamp INTEGER NOT NULL
             )
-        `;
-    return this.db.run(sql);
+        `);
+    await this.db.run(`
+            CREATE TABLE IF NOT EXISTS eliminados (
+                id INTEGER PRIMARY KEY,
+                timestamp INTEGER NOT NULL
+            )
+        `);
   }
 
   async insertar(id, nombre, nodoOrigen, timestamp) {
@@ -38,6 +43,11 @@ class UsuarioModel {
   }
 
   async insertarSiNoExiste(id, nombre, nodoOrigen, timestamp) {
+    const eliminado = await this.db.get(
+      `SELECT id FROM eliminados WHERE id = ?`,
+      [id],
+    );
+    if (eliminado) return null;
     const existe = await this.db.get(`SELECT id FROM usuarios WHERE id = ?`, [
       id,
     ]);
@@ -55,7 +65,23 @@ class UsuarioModel {
   }
 
   async eliminar(id) {
+    await this.db.run(
+      `INSERT OR IGNORE INTO eliminados (id, timestamp) VALUES (?, ?)`,
+      [id, Date.now()],
+    );
     return this.db.run(`DELETE FROM usuarios WHERE id = ?`, [id]);
+  }
+
+  async obtenerEliminados() {
+    return this.db.all(`SELECT * FROM eliminados`);
+  }
+
+  async registrarEliminado(id, timestamp) {
+    await this.db.run(
+      `INSERT OR IGNORE INTO eliminados (id, timestamp) VALUES (?, ?)`,
+      [id, timestamp],
+    );
+    await this.db.run(`DELETE FROM usuarios WHERE id = ?`, [id]);
   }
 }
 
