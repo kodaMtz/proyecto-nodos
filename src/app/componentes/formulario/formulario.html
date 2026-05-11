@@ -1,0 +1,44 @@
+<div class="container">
+  <h1>📝 Nodo {{ miNodo }}</h1>
+
+  <div class="form-group">
+    <input [(ngModel)]="nuevoNombre" placeholder="Escribe un nombre" (keyup.enter)="insertar()" />
+    <button (click)="insertar()">Insertar</button>
+  </div>
+
+  <div *ngIf="mensaje" [class.error]="mensajeError" class="mensaje">
+    {{ mensaje }}
+  </div>
+
+  <div *ngIf="usuarioEditando" class="form-edicion">
+    <h3>✏️ Editando ID {{ usuarioEditando.id }}</h3>
+    <input [(ngModel)]="nombreEditando" placeholder="Nuevo nombre" />
+    <button (click)="guardarEdicion()">Guardar</button>
+    <button class="btn-cancelar" (click)="cancelarEdicion()">Cancelar</button>
+  </div>
+
+  <h2>📋 Usuarios registrados</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Creado por</th>
+        <th>Fecha</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of usuarios">
+        <td>{{ user.id }}</td>
+        <td>{{ user.nombre }}</td>
+        <td>{{ user.nodo_origen }}</td>
+        <td>{{ user.timestamp | date: 'HH:mm:ss' }}</td>
+        <td>
+          <button class="btn-editar" (click)="editar(user)">✏️ Editar</button>
+          <button class="btn-eliminar" (click)="eliminar(user.id)">🗑️ Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
