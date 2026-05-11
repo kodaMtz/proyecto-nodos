@@ -1,0 +1,99 @@
+.container {
+  padding: 20px;
+  font-family: Arial;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.form-group {
+  margin: 20px 0;
+}
+
+input {
+  padding: 10px;
+  width: 200px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  padding: 10px 20px;
+  background: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-right: 5px;
+}
+
+button:hover {
+  background: #0056b3;
+}
+
+.btn-editar {
+  background: #ffc107;
+  color: black;
+  padding: 5px 10px;
+}
+
+.btn-editar:hover {
+  background: #e0a800;
+}
+
+.btn-eliminar {
+  background: #dc3545;
+  padding: 5px 10px;
+}
+
+.btn-eliminar:hover {
+  background: #c82333;
+}
+
+.btn-cancelar {
+  background: #6c757d;
+}
+
+.btn-cancelar:hover {
+  background: #5a6268;
+}
+
+.form-edicion {
+  background: #fff3cd;
+  padding: 15px;
+  border-radius: 5px;
+  margin: 15px 0;
+  border: 1px solid #ffc107;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background: #007bff;
+  color: white;
+}
+
+tr:nth-child(even) {
+  background: #f2f2f2;
+}
+
+.mensaje {
+  padding: 10px;
+  margin: 10px 0;
+  background: #d4edda;
+  border-radius: 5px;
+}
+
+.error {
+  background: #f8d7da;
+}
